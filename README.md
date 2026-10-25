@@ -1,13 +1,26 @@
 # Automação da emissão de certificados de calibração – Schulz S.A.
 
-Projeto Aplicado I 2026.2 – UniSENAI · Orientador: Prof. MSc. Hugo Menezes Barra
+Projeto Aplicado I 2026.2 – UniSENAI · Orientadores: Prof. MSc. Hugo Menezes Barra e Prof. Rodrigo Losina
 
-**Fase 02 – Modelagem e implementação do banco de dados (SQLite)**
+**Fase 03 – MVP Parte 1: classes em POO (Python) e conexão com o SQLite**
+(a Fase 02 – banco de dados SQLite – continua no repositório e foi reaproveitada)
 
 Equipe: Deivid Correa Borges · Fábio Luis Bezerra Marques · Gabriel Ricardo Lombardi ·
 Rodrigo de Souza Nascimento · Samuel Rodrigues Lopes Sobrinho
 
 ## Arquivos
+
+### Fase 03 – MVP Parte 1
+
+| Arquivo | Conteúdo |
+|---|---|
+| `04_classes.py` | Classes de domínio (`Tecnico`, `Signatario`, `Solicitante`, `ItemCalibrado`, `Padrao`, `Medicao`, `Calibracao`), conexão `ConexaoSQLite`, repositórios com INSERT/SELECT/UPDATE/DELETE e tradução dos erros do SQLite |
+| `05_main.py` | Classe `Principal`: cria os objetos, grava, atualiza, exclui, consulta com JOIN, imprime o relatório de calibração e testa 15 registros inválidos |
+| `06_mvp_parte1.md` | Documentação técnica: padrões de POO, diagramas UML, tratamento de erros SQL e validação do fluxo |
+| `testes_mvp.py` | 34 testes automatizados (unittest) |
+| `docs/` | Diagramas UML em imagem |
+
+### Fase 02 – Banco de dados
 
 | Arquivo | Conteúdo |
 |---|---|
@@ -23,7 +36,16 @@ Rodrigo de Souza Nascimento · Samuel Rodrigues Lopes Sobrinho
 | `dados/padroes.csv` | Dados do padrão 500.011 (aba Padrões) |
 | `dados/complemento_00091-2026.json` | Dados do certificado que não existem no Calypso, com a célula de origem |
 
-## Como executar no VS Code (Windows, Linux ou macOS)
+## Como executar a Fase 03
+
+```bash
+pip install -r requirements.txt
+python 05_main.py                          # demonstração completa (cria schulz_mvp.db)
+python 05_main.py --relatorio 00091/2026   # só o relatório de calibração
+python testes_mvp.py                       # 34 testes do MVP
+```
+
+## Como executar a Fase 02 no VS Code (Windows, Linux ou macOS)
 
 1. Instale o Python 3.10 ou superior e, no VS Code, a extensão **SQLite Viewer** para abrir o banco.
 2. No terminal do VS Code (no Windows, troque `python` por `py` se o comando não for encontrado):
