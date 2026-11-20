@@ -3,4 +3,11 @@ __pycache__/
 *.db
 logs/
 .venv/
+.venv-build/
 .vscode/
+build/
+dist/
+certificados/
+complementos/
+resultados_testes/
+saida_console.log

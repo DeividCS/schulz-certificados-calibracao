@@ -2,13 +2,28 @@
 
 Projeto Aplicado I 2026.2 – UniSENAI · Orientadores: Prof. MSc. Hugo Menezes Barra e Prof. Rodrigo Losina
 
-**Fase 03 – MVP Parte 1: classes em POO (Python) e conexão com o SQLite**
-(a Fase 02 – banco de dados SQLite – continua no repositório e foi reaproveitada)
+**Fase 04 – MVP final: ingestão das planilhas, emissão do certificado e executável Windows**
+(as Fases 01 a 03 continuam no repositório e foram reaproveitadas sem alteração)
 
 Equipe: Deivid Correa Borges · Fábio Luis Bezerra Marques · Gabriel Ricardo Lombardi ·
 Rodrigo de Souza Nascimento · Samuel Rodrigues Lopes Sobrinho
 
 ## Arquivos
+
+### Fase 04 – MVP final e executável
+
+| Arquivo | Conteúdo |
+|---|---|
+| `07_gerador_certificado.py` | Ingestão (ETL) com saneamento, motor de emissão (JOIN no SQLite), certificado em PDF, interface gráfica (tkinter) e plano de testes |
+| `08_mvp_final_manual.md` | Arquitetura final (fluxo ponta a ponta), guia de build, manual do usuário ilustrado, plano de testes e conclusões |
+| `build_exe.bat` | Gera `entrega\Schulz_Calibracao.exe`, roda os testes no .exe e grava `evidencia_build.txt` |
+| `Schulz_Calibracao.spec` / `versao_exe.txt` | Receita do PyInstaller (arquivo único, sem console) e dados de versão do .exe |
+| `requirements-build.txt` | PyInstaller (só para gerar o .exe) |
+| `gerar_dados_teste.py` / `dados/testes/` | Planilhas usadas nos 13 casos de teste (aprovado, padrão vencido, sem aba Report, valor vazio) |
+| `docs/` | Fluxo ponta a ponta e capturas de tela do manual |
+| `entregas/` | PDFs consolidados entregues no AVA (AV 01 a AV 04) |
+
+O `Schulz_Calibracao.exe` não é versionado (é gerado pelo `build_exe.bat`); ele vai na pasta `entrega` do ZIP postado no AVA.
 
 ### Fase 03 – MVP Parte 1
 
@@ -35,6 +50,19 @@ Rodrigo de Souza Nascimento · Samuel Rodrigues Lopes Sobrinho
 | `dados/03__Planilha_MMC.xlsm` | Aba BANCO DE DADOS com técnicos, padrões e áreas |
 | `dados/padroes.csv` | Dados do padrão 500.011 (aba Padrões) |
 | `dados/complemento_00091-2026.json` | Dados do certificado que não existem no Calypso, com a célula de origem |
+
+## Como executar a Fase 04
+
+Usuário final (Windows): copie a pasta `entrega` e dê dois cliques em `Schulz_Calibracao.exe`.
+
+Desenvolvimento:
+
+```bash
+pip install -r requirements.txt
+python 07_gerador_certificado.py           # abre a interface
+python 07_gerador_certificado.py --testes  # 13 casos de teste (grava resultados_testes/)
+build_exe.bat                              # Windows: gera o executável e a pasta entrega/
+```
 
 ## Como executar a Fase 03
 
