@@ -23,7 +23,12 @@ a = Analysis(
                    "reportlab.graphics.barcode.code128", "reportlab.graphics.barcode.code39",
                    "reportlab.graphics.barcode.code93", "reportlab.graphics.barcode.usps",
                    "reportlab.graphics.barcode.usps4s", "reportlab.graphics.barcode.ecc200datamatrix"],
-    excludes=["matplotlib", "numpy", "pandas", "PIL.ImageQt", "PyQt5", "PySide6"],
+    # o AVA aceita no máximo 20 MB: tira o que o programa não usa (o reportlab só precisa do núcleo do Pillow;
+    # sem ssl/_hashlib o sha256 usa a implementação interna do Python e as DLLs do OpenSSL saem)
+    excludes=["matplotlib", "numpy", "pandas", "PyQt5", "PySide6", "PIL._avif", "PIL.AvifImagePlugin",
+              "PIL._webp", "PIL.WebPImagePlugin", "PIL._imagingcms", "PIL.ImageCms", "PIL._imagingtk",
+              "PIL.ImageTk", "PIL.ImageQt", "_hashlib", "ssl", "_ssl", "charset_normalizer", "asyncio",
+              "unittest", "pydoc", "xmlrpc", "setuptools", "pkg_resources"],
     noarchive=False,
 )
 pyz = PYZ(a.pure)

@@ -144,15 +144,15 @@ Decisões do `Schulz_Calibracao.spec`:
 | `datas`: `03_banco.sql`, `dados/` | O DDL e os cadastros da Schulz vão dentro do .exe; o programa acha esses arquivos em `sys._MEIPASS` |
 | Banco, certificados e logs ao lado do .exe | No .exe a pasta de trabalho é a do `sys.executable`, então o técnico vê o `schulz_calibracao.db` e a pasta `certificados` |
 | Python x64 | O .exe x64 roda em qualquer Windows x64 e também em Windows ARM (emulação). Um .exe ARM64 não rodaria nos PCs x64 |
-| `excludes` de matplotlib/numpy/pandas | Deixa o .exe menor (≈ 22 MB) |
+| `excludes` (plugins AVIF/WebP do Pillow, OpenSSL, asyncio, unittest…) | O AVA aceita no máximo 20 MB. O primeiro build tinha 22,8 MB; tirando o que o programa não usa ele caiu para **14,6 MB**, com os mesmos 13 testes passando |
 
 **Evidência do build** (`entrega/evidencia_build.txt`, gerado no notebook do Deivid em 20/11/2026):
 
 ```
 Interpretador do build : Python 3.14.5 win-amd64
 PyInstaller            : 6.22.3
-Executável             : entrega\Schulz_Calibracao.exe (PE32+ GUI x86-64), 22796981 bytes
-SHA-256                : 16802d87395fcf76c0011fb8f77120045d67d18d7141c61dc18c212c9868aa08
+Executável             : entrega\Schulz_Calibracao.exe (PE32+ GUI x86-64), 14582669 bytes
+SHA-256                : dacf116f57cdb6f2b2d54df7675df6e9c1719296fafcdfc35ca2f22fa4080219
 Testes no .exe         : RESULTADO: 13 de 13 casos de teste passaram
 ```
 
@@ -263,7 +263,7 @@ Os recusados não gravam nada: o CT-12 confirma que só os dois certificados vá
 Trecho do `relatorio_testes.txt` gerado pelo .exe:
 
 ```
-PLANO DE TESTES - Schulz_Calibracao v1.0.0 | 2026-11-20 18:15:41 | usuário Deivid Borges
+PLANO DE TESTES - Schulz_Calibracao v1.0.0 | 2026-11-20 18:42:07 | usuário Deivid Borges
 Python 3.14.5 | executável: sim | algoritmo: calc-1.0 (média de 2 medições, faixa de guarda com U em mm, margem 1e-7)
 
 [CT-01] Certificado real 00091/2026 (Report do Calypso da Schulz)
@@ -300,6 +300,9 @@ RESULTADO: 13 de 13 casos de teste passaram
   a saída para `saida_console.log`.
 - **Mesma planilha duas vezes.** O roteiro pede para não duplicar; além do número do certificado,
   passamos a comparar o SHA-256 do arquivo (TR-19).
+- **Limite de 20 MB do AVA.** O .exe saiu com 22,8 MB. Vimos que 5,7 MB eram do Pillow (o plugin de
+  imagens AVIF, que não usamos) e 2,1 MB das DLLs do OpenSSL. Excluímos esses módulos no `.spec` e o .exe
+  ficou com 14,6 MB, rodando os mesmos testes.
 - **Tela em notebook.** A primeira versão cortava a parte de baixo numa tela de 768 px; a janela agora
   abre maximizada e as tabelas ficaram mais baixas.
 
